@@ -26,12 +26,12 @@ export class CatalogItemController {
   // Return all catalog items with ratings and reflections filtered for specific user
   async getAll(@Query('userId') userId: number): Promise<CatalogItem[]> {
     const qb = this.em.createQueryBuilder(CatalogItem);
-    const query = qb
+    const catalogItems = await qb
       .select('*')
       .leftJoinAndSelect('_ratings', 'r', { 'r.user_id': userId })
-      .leftJoinAndSelect('_reflections', 'rf', { 'rf.user_id': userId });
-    const results = await query.execute();
-    return results.map((it) => this.catalogItemRepository.map(it));
+      .leftJoinAndSelect('_reflections', 'rf', { 'rf.user_id': userId })
+      .getResult();
+    return catalogItems;
   }
 
   @Post(':id/ratings')
