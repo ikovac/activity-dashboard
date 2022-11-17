@@ -3,8 +3,8 @@ import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import databaseConfig from 'config/database.config';
-import { RatingModule } from 'learning/learning.module';
-import { CatalogItemController } from './catalog-item/catalog-item.controller';
+import { LearningModule } from 'learning/learning.module';
+import entities from 'shared/database/entities';
 
 @Module({
   imports: [
@@ -17,10 +17,11 @@ import { CatalogItemController } from './catalog-item/catalog-item.controller';
       useFactory: (config: ConfigService) => ({
         loadStrategy: LoadStrategy.JOINED,
         ...config.get('database'),
+        entities,
       }),
     }),
-    RatingModule,
+    LearningModule,
   ],
-  controllers: [CatalogItemController],
+  controllers: [],
 })
 export class AppModule {}
