@@ -2,6 +2,7 @@ import { LoadStrategy } from '@mikro-orm/core';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ActivityModule } from 'activity/activity.module';
 import databaseConfig from 'config/database.config';
 import { LearningModule } from 'learning/learning.module';
 import entities from 'shared/database/entities';
@@ -21,6 +22,7 @@ import entities from 'shared/database/entities';
       }),
     }),
     LearningModule,
+    ActivityModule,
   ],
   controllers: [],
 })

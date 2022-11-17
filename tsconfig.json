@@ -21,10 +21,7 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false,
-    "suppressImplicitAnyIndexErrors": true,
-    "alwaysStrict": true,
-    "allowJs": true
+    "noFallthroughCasesInSwitch": false
   },
   "ts-node": {
     "files": true,

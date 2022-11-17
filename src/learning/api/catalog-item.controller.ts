@@ -23,24 +23,23 @@ export class CatalogItemController {
   ) {}
 
   @Get()
-  // Return all catalog items with ratings and reflections filtered for specific user
   async getAll(): Promise<CatalogItem[]> {
     return this.catalogItemService.getAll();
   }
 
   @Post(':id/ratings')
   async rate(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body() { value, learnerId }: RateDto,
   ): Promise<void> {
-    await this.ratingService.rate(id, value, learnerId);
+    await this.ratingService.rate(+id, value, learnerId);
   }
 
   @Post(':id/reflections')
   async reflect(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body() { text, learnerId }: ReflectionDto,
   ): Promise<void> {
-    await this.reflectionService.reflect(id, text, learnerId);
+    await this.reflectionService.reflect(+id, text, learnerId);
   }
 }

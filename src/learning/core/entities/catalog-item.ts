@@ -27,9 +27,6 @@ class CatalogItem extends BaseEntity {
   })
   _reflections = new Collection<Reflection>(this);
 
-  @Property({ persist: false })
-  avg: number;
-
   constructor(title: string, description: string) {
     super();
     this.title = title;
