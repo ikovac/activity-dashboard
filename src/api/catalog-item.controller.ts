@@ -2,7 +2,7 @@ import { EntityRepository } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityManager } from '@mikro-orm/postgresql';
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
-import CatalogItem from 'src/core/catalog-item.entity';
+import CatalogItem from 'core/catalog-item.entity';
 
 type RateDto = {
   value: number;

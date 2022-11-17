@@ -1,7 +1,7 @@
 import { Collection, Entity, OneToMany, Property } from '@mikro-orm/core';
-import BaseEntity from '../shared/database/base.entity';
-import Rating from './rating.entity';
-import Reflection from './reflection.entity';
+import BaseEntity from 'shared/database/base.entity';
+import Rating from './rating';
+import Reflection from './reflection';
 
 @Entity()
 class CatalogItem extends BaseEntity {
@@ -27,6 +27,9 @@ class CatalogItem extends BaseEntity {
   })
   _reflections = new Collection<Reflection>(this);
 
+  @Property({ persist: false })
+  avg: number;
+
   constructor(title: string, description: string) {
     super();
     this.title = title;
@@ -35,22 +38,22 @@ class CatalogItem extends BaseEntity {
 
   @Property({ persist: false })
   get ratings() {
-    return this._ratings.getItems();
+    return this._ratings.getItems(true);
   }
 
   @Property({ persist: false })
   get reflections() {
-    return this._reflections.getItems();
+    return this._reflections.getItems(true);
   }
 
-  rate(value: number, userId: number) {
-    const rating = new Rating(value, userId);
-    if (this.ratings.some((it) => it.userId === userId)) return;
+  rate(value: number, learnerId: number) {
+    const rating = new Rating(value, learnerId);
+    if (this.ratings.some((it) => it.learnerId === learnerId)) return;
     this._ratings.add(rating);
   }
 
-  reflect(text: string, userId: number) {
-    const reflection = new Reflection(text, userId);
+  reflect(text: string, learnerId: number) {
+    const reflection = new Reflection(text, learnerId);
     this._reflections.add(reflection);
   }
 }

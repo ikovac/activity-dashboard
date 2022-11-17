@@ -2,7 +2,7 @@ import { Migration } from '@mikro-orm/migrations';
 
 const TABLE_NAME = 'catalog_item';
 
-export class CreateUser extends Migration {
+export class CreateCatalogItem extends Migration {
   async up(): Promise<void> {
     const knex = this.getKnex();
 

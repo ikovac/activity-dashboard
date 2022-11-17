@@ -2,15 +2,14 @@ import { Migration } from '@mikro-orm/migrations';
 
 const TABLE_NAME = 'rating';
 
-export class CreateUser extends Migration {
+export class CreateRating extends Migration {
   async up(): Promise<void> {
     const knex = this.getKnex();
 
     const createRatingTable = knex.schema.createTable(TABLE_NAME, (table) => {
       table.increments('id');
       table.integer('value').notNullable();
-      table.integer('user_id').notNullable();
-      table.foreign('user_id').references('user.id').onDelete('CASCADE');
+      table.integer('learner_id').notNullable();
       table.integer('catalog_item_id').notNullable();
       table
         .foreign('catalog_item_id')

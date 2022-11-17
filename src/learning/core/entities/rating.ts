@@ -1,6 +1,6 @@
 import { Entity, ManyToOne, Property } from '@mikro-orm/core';
-import BaseEntity from '../shared/database/base.entity';
-import CatalogItem from './catalog-item.entity';
+import BaseEntity from 'shared/database/base.entity';
+import CatalogItem from './catalog-item';
 
 @Entity()
 class Rating extends BaseEntity {
@@ -8,7 +8,7 @@ class Rating extends BaseEntity {
   value: number;
 
   @Property()
-  userId: number;
+  learnerId: number;
 
   @ManyToOne({
     entity: () => CatalogItem,
@@ -16,10 +16,10 @@ class Rating extends BaseEntity {
   })
   catalogItem: CatalogItem;
 
-  constructor(value: number, userId: number) {
+  constructor(value: number, learnerId: number) {
     super();
     this.value = value;
-    this.userId = userId;
+    this.learnerId = learnerId;
   }
 }
 
