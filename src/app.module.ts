@@ -1,6 +1,6 @@
 import { LoadStrategy } from '@mikro-orm/core';
-import { MikroOrmModule } from '@mikro-orm/nestjs';
-import { Module } from '@nestjs/common';
+import { MikroOrmMiddleware, MikroOrmModule } from '@mikro-orm/nestjs';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ActivityModule } from 'activity/activity.module';
 import databaseConfig from 'config/database.config';
@@ -19,6 +19,7 @@ import entities from 'shared/database/entities';
         loadStrategy: LoadStrategy.JOINED,
         ...config.get('database'),
         entities,
+        allowGlobalContext: true,
       }),
     }),
     LearningModule,
@@ -26,4 +27,8 @@ import entities from 'shared/database/entities';
   ],
   controllers: [],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(MikroOrmMiddleware).forRoutes('*');
+  }
+}
